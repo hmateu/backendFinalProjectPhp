@@ -5,7 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Ticket extends Model
+class Employee extends Model
 {
     use HasFactory;
 
@@ -13,8 +13,11 @@ class Ticket extends Model
         return $this->belongsTo(User::class);
     }
 
-    public function price_change() {
-        return $this->belongsTo(Price_Change::class);
+    public function attraction() {
+        return $this->belongsTo(Attraction::class);
     }
 
+    public function payroll() {
+        return $this->hasMany(Payroll::class);
+    }
 }
