@@ -16,6 +16,10 @@ class Employee extends Model
         'attraction'
     ];
 
+    protected $hidden = [
+        'password'
+    ];
+
     public function user() {
         return $this->belongsTo(User::class);
     }

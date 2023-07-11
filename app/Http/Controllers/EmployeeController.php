@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Models\Employee;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
 use Symfony\Component\HttpFoundation\Response;
 
@@ -12,10 +11,14 @@ class EmployeeController extends Controller
     public function getAllEmployees()
     {
         try {
-            $employees = Employee::get();
+            // $employees = Employee::get();
+            $employees = Employee::select('employees.id', 'users.name', 'employees.email', 'attractions.name as attraction')
+                ->leftJoin('users', 'users.id', 'employees.user')
+                ->leftJoin('attractions', 'attractions.id', 'employees.attraction')
+                ->get();
             return response()->json([
                 'success' => 'true',
-                'message' => 'Empleados devueltos',
+                'message' => 'Empleados recuperados',
                 'data' => $employees
             ], Response::HTTP_OK);
         } catch (\Throwable $th) {
@@ -23,7 +26,7 @@ class EmployeeController extends Controller
 
             return response()->json([
                 'success' => 'false',
-                'message' => 'Error al devolver empleados',
+                'message' => 'Error al recuperar empleados',
             ]);
         }
     }
@@ -31,10 +34,13 @@ class EmployeeController extends Controller
     public function getEmployeeById($id)
     {
         try {
-            $employee = Employee::find($id);
+            $employee = Employee::select('employees.id', 'users.name', 'employees.email', 'attractions.name as attraction')
+                ->leftJoin('users', 'users.id', 'employees.user')
+                ->leftJoin('attractions', 'attractions.id', 'employees.attraction')
+                ->find($id);
             return response()->json([
                 'success' => 'true',
-                'message' => 'Empleado devuelto por id',
+                'message' => 'Empleado recuperado por id',
                 'data' => $employee
             ], Response::HTTP_OK);
         } catch (\Throwable $th) {
@@ -42,7 +48,7 @@ class EmployeeController extends Controller
 
             return response()->json([
                 'success' => 'false',
-                'message' => 'Error al devolver el empleado por id',
+                'message' => 'Error al recuperar el empleado por id',
             ]);
         }
     }
@@ -50,18 +56,22 @@ class EmployeeController extends Controller
     public function getEmployeeByEmail($email)
     {
         try {
-            $employee = Employee::where('email', 'like', '%' . $email . '%')->get();
+            $employee = Employee::select('employees.id', 'users.name', 'employees.email', 'attractions.name as attraction')
+                ->leftJoin('users', 'users.id', 'employees.user')
+                ->leftJoin('attractions', 'attractions.id', 'employees.attraction')
+                ->where('employees.email', 'like', '%' . $email . '%')
+                ->get();
             return response()->json([
                 'success' => 'true',
-                'message' => 'Empleado devuelto por nombre',
+                'message' => 'Empleado recuperado por email',
                 'data' => $employee
             ], Response::HTTP_OK);
         } catch (\Throwable $th) {
-            Log::error('Error recuperando el empleado por nombre ' . $th->getMessage());
+            Log::error('Error recuperando el empleado por email ' . $th->getMessage());
 
             return response()->json([
                 'success' => 'false',
-                'message' => 'Error al devolver el empleado por nombre',
+                'message' => 'Error al recuperar el empleado por email',
             ]);
         }
     }

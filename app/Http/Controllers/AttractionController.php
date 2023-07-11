@@ -13,18 +13,19 @@ class AttractionController extends Controller
     public function getAllAttractions()
     {
         try {
-            $attractions = Attraction::get();
+            $attractions = Attraction::select('id','name','min_height','max_height','length')
+            ->get();
             return response()->json([
                 'success' => 'true',
-                'message' => 'Atracciones devueltas',
+                'message' => 'Atracciones recuperadas',
                 'data' => $attractions
             ], Response::HTTP_OK);
         } catch (\Throwable $th) {
-            Log::error('Error devolviendo atracciones ' . $th->getMessage());
+            Log::error('Error recuperando atracciones ' . $th->getMessage());
 
             return response()->json([
                 'success' => 'false',
-                'message' => 'Error al devolver atracciones',
+                'message' => 'Error al recuperar atracciones',
             ]);
         }
     }
@@ -32,18 +33,19 @@ class AttractionController extends Controller
     public function getAttractionById($id)
     {
         try {
-            $attraction = Attraction::find($id);
+            $attraction = Attraction::select('id','name','min_height','max_height','length')
+            ->find($id);
             return response()->json([
                 'success' => 'true',
-                'message' => 'Atracción devuelta',
+                'message' => 'Atracción recuperada por id',
                 'data' => $attraction
             ], Response::HTTP_OK);
         } catch (\Throwable $th) {
-            Log::error('Error capturando atracción ' . $th->getMessage());
+            Log::error('Error recuperando la atracción por id ' . $th->getMessage());
 
             return response()->json([
                 'success' => 'false',
-                'message' => 'Error al devolver la atracción',
+                'message' => 'Error al recuperar la atracción por id',
             ]);
         }
     }
@@ -51,18 +53,19 @@ class AttractionController extends Controller
     public function getAttractionByName($name)
     {
         try {
-            $attraction = Attraction::where('name', 'like', '%' . $name . '%')->get();
+            $attraction = Attraction::select('id','name','min_height','max_height','length')
+            ->where('name', 'like', '%' . $name . '%')->get();
             return response()->json([
                 'success' => 'true',
-                'message' => 'Atracción devuelta',
+                'message' => 'Atracción recuperada por nombre',
                 'data' => $attraction
             ], Response::HTTP_OK);
         } catch (\Throwable $th) {
-            Log::error('Error capturando atracción ' . $th->getMessage());
+            Log::error('Error recuperando la atracción por nombre  ' . $th->getMessage());
 
             return response()->json([
                 'success' => 'false',
-                'message' => 'Error al devolver la atracción',
+                'message' => 'Error al recuperar la atracción por nombre',
             ]);
         }
     }
@@ -103,7 +106,7 @@ class AttractionController extends Controller
                 'data' => $attraction
             ], Response::HTTP_OK);
         } catch (\Throwable $th) {
-            Log::error('Error al crear la atracción ' . $th->getMessage());
+            Log::error('Error creando la atracción ' . $th->getMessage());
 
             return response()->json([
                 'success' => 'false',
