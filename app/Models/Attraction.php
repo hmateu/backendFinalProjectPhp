@@ -9,6 +9,13 @@ class Attraction extends Model
 {
     use HasFactory;
 
+    protected $fillable = [
+        'name',
+        'min_height',
+        'max_height',
+        'length'
+    ];
+
     public function employee() {
         return $this->hasMany(Employee::class);
     }
