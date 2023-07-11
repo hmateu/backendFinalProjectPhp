@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AttractionController;
+use App\Http\Controllers\EmployeeController;
 use App\Http\Controllers\UserController;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -32,3 +33,8 @@ Route::get('/attractions', [AttractionController::class, 'getAllAttractions']);
 Route::get('/attraction/{id}', [AttractionController::class, 'getAttractionById']);
 Route::get('/attraction/name/{name}', [AttractionController::class, 'getAttractionByName']);
 Route::post('/attraction', [AttractionController::class, 'createAttraction']);
+
+// Employee controllers
+Route::get('/employees', [EmployeeController::class, 'getAllEmployees']);
+Route::get('/employee/{id}', [EmployeeController::class, 'getEmployeeById']);
+Route::get('/employee/email/{email}', [EmployeeController::class, 'getEmployeeByEmail']);

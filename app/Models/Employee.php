@@ -9,6 +9,13 @@ class Employee extends Model
 {
     use HasFactory;
 
+    protected $fillable = [
+        'email',
+        'password',
+        'user',
+        'attraction'
+    ];
+
     public function user() {
         return $this->belongsTo(User::class);
     }
