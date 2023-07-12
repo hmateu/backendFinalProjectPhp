@@ -10,6 +10,6 @@ class Payroll extends Model
     use HasFactory;
 
     public function employee() {
-        return $this->belongsTo(Employee::class);
+        return $this->belongsTo(Employee::class, 'employee');
     }
 }

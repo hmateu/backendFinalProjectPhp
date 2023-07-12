@@ -3,11 +3,13 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
+use Illuminate\Http\Client\Request as ClientRequest;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\Rules\Password;
+use Laravel\Sanctum\PersonalAccessToken;
 use Symfony\Component\HttpFoundation\Response;
 
 class AuthController extends Controller
@@ -132,5 +134,26 @@ class AuthController extends Controller
                 'message' => 'Error recuperando usuarios'
             ], Response::HTTP_INTERNAL_SERVER_ERROR);
         }
+    }
+
+    public function logout(Request $request){
+        try {
+            $headerToken = $request->bearerToken();
+
+        $token = PersonalAccessToken::findToken($headerToken);
+
+        $token->delete();
+
+        return response()->json([
+            'message' => 'Usuario deslogueado',
+        ], Response::HTTP_OK);
+        } catch (\Throwable $th) {
+            Log::error('Error al desloguear el usuario ' . $th->getMessage());
+
+            return response()->json([
+                'message' => 'Error deslogueando el usuario'
+            ], Response::HTTP_INTERNAL_SERVER_ERROR);
+        }
+
     }
 }

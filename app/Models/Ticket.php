@@ -10,11 +10,11 @@ class Ticket extends Model
     use HasFactory;
 
     public function user() {
-        return $this->belongsTo(User::class);
+        return $this->belongsTo(User::class, 'customer');
     }
 
     public function price_change() {
-        return $this->belongsTo(Price_Change::class);
+        return $this->belongsTo(Price_Change::class, 'price_change');
     }
 
 }

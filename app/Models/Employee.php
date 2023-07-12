@@ -21,11 +21,11 @@ class Employee extends Model
     ];
 
     public function user() {
-        return $this->belongsTo(User::class);
+        return $this->belongsTo(User::class, 'user');
     }
 
     public function attraction() {
-        return $this->belongsTo(Attraction::class);
+        return $this->belongsTo(Attraction::class, 'attraction');
     }
 
     public function payroll() {

@@ -68,4 +68,47 @@ class UserController extends Controller
             ]);
         }
     }
+
+    public function deleteMyAccount(){
+        try {
+            $user = auth()->user();
+
+            $userFound = User::find($user->id);
+
+            $userFound->delete();
+
+            return response()->json([
+                'success' => 'true',
+                'message' => 'Cuenta eliminada',
+                'data' => $user
+            ], Response::HTTP_OK);
+
+        } catch (\Throwable $th) {
+            Log::error('Error al eliminar la cuenta ' . $th->getMessage());
+
+            return response()->json([
+                'success' => 'false',
+                'message' => 'Error al aliminar la cuenta',
+            ]);
+        }
+    }
+
+    public function restoreAccount($id){
+        try {
+            User::withTrashed()->where('id',$id)->restore();
+
+            return response()->json([
+                'success' => 'true',
+                'message' => 'Cuenta restaurada'
+            ], Response::HTTP_OK);
+
+        } catch (\Throwable $th) {
+            Log::error('Error al restaurar la cuenta ' . $th->getMessage());
+
+            return response()->json([
+                'success' => 'false',
+                'message' => 'Error al restaurar la cuenta',
+            ]);
+        }
+    }
 }

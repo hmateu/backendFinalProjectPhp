@@ -11,11 +11,7 @@ class EmployeeController extends Controller
     public function getAllEmployees()
     {
         try {
-            // $employees = Employee::get();
-            $employees = Employee::select('employees.id', 'users.name', 'employees.email', 'attractions.name as attraction')
-                ->leftJoin('users', 'users.id', 'employees.user')
-                ->leftJoin('attractions', 'attractions.id', 'employees.attraction')
-                ->get();
+            $employees = Employee::with('user:id,name')->with('attraction:id,name')->get();
             return response()->json([
                 'success' => 'true',
                 'message' => 'Empleados recuperados',
@@ -34,10 +30,7 @@ class EmployeeController extends Controller
     public function getEmployeeById($id)
     {
         try {
-            $employee = Employee::select('employees.id', 'users.name', 'employees.email', 'attractions.name as attraction')
-                ->leftJoin('users', 'users.id', 'employees.user')
-                ->leftJoin('attractions', 'attractions.id', 'employees.attraction')
-                ->find($id);
+            $employee = Employee::with('user:id,name')->with('attraction:id,name')->find($id);
             return response()->json([
                 'success' => 'true',
                 'message' => 'Empleado recuperado por id',
@@ -56,9 +49,7 @@ class EmployeeController extends Controller
     public function getEmployeeByEmail($email)
     {
         try {
-            $employee = Employee::select('employees.id', 'users.name', 'employees.email', 'attractions.name as attraction')
-                ->leftJoin('users', 'users.id', 'employees.user')
-                ->leftJoin('attractions', 'attractions.id', 'employees.attraction')
+            $employee = Employee::with('user:id,name')->with('attraction:id,name')
                 ->where('employees.email', 'like', '%' . $email . '%')
                 ->get();
             return response()->json([

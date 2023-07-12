@@ -27,18 +27,23 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 // Auth controllers
 Route::post('/auth/register', [AuthController::class, 'register']);
 Route::post('/auth/login', [AuthController::class, 'login']);
-Route::get('/profile', [AuthController::class, 'profile'])->middleware('auth:sanctum');
+Route::get('/auth/profile', [AuthController::class, 'profile'])->middleware('auth:sanctum');
+Route::post('/auth/logout', [AuthController::class, 'logout'])->middleware('auth:sanctum');
 
 // User controllers
 Route::get('/users', [UserController::class, 'getAllUsers']);
 Route::get('/user/{id}', [UserController::class, 'getUserById']);
 Route::get('/user/name/{name}', [UserController::class, 'getUserByName']);
+Route::delete('/user/delete', [UserController::class, 'deleteMyAccount'])->middleware('auth:sanctum');
+Route::post('/user/restore/{id}', [UserController::class, 'restoreAccount']);
 
 // Attraction controllers
 Route::get('/attractions', [AttractionController::class, 'getAllAttractions']);
-Route::get('/attraction/{id}', [AttractionController::class, 'getAttractionById']);
 Route::get('/attraction/name/{name}', [AttractionController::class, 'getAttractionByName']);
 Route::post('/attraction', [AttractionController::class, 'createAttraction']);
+Route::put('/attraction/update', [AttractionController::class, 'updateAttraction']);
+Route::get('/attraction/{id}', [AttractionController::class, 'getAttractionById']);
+Route::delete('/attraction/{id}', [AttractionController::class, 'deleteAttraction']);
 
 // Employee controllers
 Route::get('/employees', [EmployeeController::class, 'getAllEmployees']);
