@@ -1,11 +1,12 @@
 <?php
 
 use App\Http\Controllers\AttractionController;
+use App\Http\Controllers\AuthController;
 use App\Http\Controllers\EmployeeController;
+use App\Http\Controllers\Price_ChangeController;
+use App\Http\Controllers\TicketController;
 use App\Http\Controllers\UserController;
-use App\Models\User;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -23,6 +24,11 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
+// Auth controllers
+Route::post('/auth/register', [AuthController::class, 'register']);
+Route::post('/auth/login', [AuthController::class, 'login']);
+Route::get('/profile', [AuthController::class, 'profile'])->middleware('auth:sanctum');
+
 // User controllers
 Route::get('/users', [UserController::class, 'getAllUsers']);
 Route::get('/user/{id}', [UserController::class, 'getUserById']);
@@ -38,3 +44,11 @@ Route::post('/attraction', [AttractionController::class, 'createAttraction']);
 Route::get('/employees', [EmployeeController::class, 'getAllEmployees']);
 Route::get('/employee/{id}', [EmployeeController::class, 'getEmployeeById']);
 Route::get('/employee/email/{email}', [EmployeeController::class, 'getEmployeeByEmail']);
+
+// Price_Change controllers
+Route::get('/price-change', [Price_ChangeController::class, 'getAllPrice_Change']);
+Route::get('/price-change/{id}', [Price_ChangeController::class, 'getPrice_ChangeById']);
+Route::get('/price-change/name/{name}', [Price_ChangeController::class, 'getPrice_ChangeByName']);
+
+// Price_Change controllers
+Route::get('/tickets', [TicketController::class, 'getAllTickets']);

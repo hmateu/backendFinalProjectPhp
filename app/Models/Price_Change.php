@@ -15,6 +15,8 @@ class Price_Change extends Model
         'description'
     ];
 
+    protected $table = "price_change";
+
     public function ticket() {
         return $this->hasMany(Ticket::class);
     }
