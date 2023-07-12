@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
-use Illuminate\Http\Client\Request as ClientRequest;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Log;
@@ -17,7 +16,7 @@ class AuthController extends Controller
     public function register(Request $request){
         try {
             $validator = Validator::make($request->all(), [
-                'dni' => 'required|string',
+                'dni' => 'required|string|unique:users,dni',
                 'name' => 'required|string',
                 'surname' => 'required|string',
                 'age' => 'required|integer',
@@ -28,6 +27,7 @@ class AuthController extends Controller
             ],[
                 'dni.required' => 'El DNI es necesario',
                 'dni.string' => 'El DNI debe ser una cadena de texto',
+                'dni.unique' => 'Este DNI no es válido',
                 'name.required' => 'El nombre es necesario',
                 'name.string' => 'El nombre debe ser una cadena de texto',
                 'age.required' => 'La edad es necesaria',
@@ -38,6 +38,7 @@ class AuthController extends Controller
                 'mobile.integer' => 'El teléfono debe ser un número',
                 'email.required' => 'El email es necesario',
                 'email.string' => 'El email debe ser una cadena de texto',
+                'email.unique' => 'El email ya existe, debes elegir otro',
                 'password.required' => 'La contraseña es necesaria',
                 'password.string' => 'La contraseña debe ser una cadena de texto',
             ]);
@@ -69,6 +70,7 @@ class AuthController extends Controller
             Log::error('Error registrando al usuario ' . $th->getMessage());
 
             return response()->json([
+                'success' => false,
                 'message' => 'Error registrando el usuario'
             ], Response::HTTP_INTERNAL_SERVER_ERROR);
         }
@@ -93,12 +95,14 @@ class AuthController extends Controller
     
             if(!$user){
                 return response()->json([
+                    'success' => true,
                     'message' => 'Email o contraseña no válido'
                 ], Response::HTTP_FORBIDDEN);
             }
     
             if(!Hash::check($validData['password'], $user->password)){
                 return response()->json([
+                    'success' => true,
                     'message' => 'Email o contraseña no es válido'
                 ], Response::HTTP_FORBIDDEN);
             }
@@ -106,8 +110,8 @@ class AuthController extends Controller
             $token = $user->createToken('apiToken')->plainTextToken;
     
             return response()->json([
+                'success' => true,
                 'message' => 'Usuario logueado',
-                'data' => $user,
                 'token' => $token
             ], Response::HTTP_CREATED);
         } catch (\Throwable $th) {
@@ -124,13 +128,15 @@ class AuthController extends Controller
             $user = auth()->user();
             
             return response()->json([
+                'success' => true,
                 'message' => 'Usuario encontrado',
-                'data' => $user,
+                'data' => $user
             ], Response::HTTP_OK);
         } catch (\Throwable $th) {
             Log::error('Error recuperando usuarios ' . $th->getMessage());
 
             return response()->json([
+                'success' => false,
                 'message' => 'Error recuperando usuarios'
             ], Response::HTTP_INTERNAL_SERVER_ERROR);
         }
@@ -145,12 +151,14 @@ class AuthController extends Controller
         $token->delete();
 
         return response()->json([
+            'success' => true,
             'message' => 'Usuario deslogueado',
         ], Response::HTTP_OK);
         } catch (\Throwable $th) {
             Log::error('Error al desloguear el usuario ' . $th->getMessage());
 
             return response()->json([
+                'success' => false,
                 'message' => 'Error deslogueando el usuario'
             ], Response::HTTP_INTERNAL_SERVER_ERROR);
         }

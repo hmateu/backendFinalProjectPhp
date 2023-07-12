@@ -69,7 +69,8 @@ class UserController extends Controller
         }
     }
 
-    public function deleteMyAccount(){
+    public function deleteMyAccount()
+    {
         try {
             $user = auth()->user();
 
@@ -82,7 +83,6 @@ class UserController extends Controller
                 'message' => 'Cuenta eliminada',
                 'data' => $user
             ], Response::HTTP_OK);
-
         } catch (\Throwable $th) {
             Log::error('Error al eliminar la cuenta ' . $th->getMessage());
 
@@ -93,15 +93,15 @@ class UserController extends Controller
         }
     }
 
-    public function restoreAccount($id){
+    public function restoreAccount($id)
+    {
         try {
-            User::withTrashed()->where('id',$id)->restore();
+            User::withTrashed()->where('id', $id)->restore();
 
             return response()->json([
                 'success' => 'true',
                 'message' => 'Cuenta restaurada'
             ], Response::HTTP_OK);
-
         } catch (\Throwable $th) {
             Log::error('Error al restaurar la cuenta ' . $th->getMessage());
 
