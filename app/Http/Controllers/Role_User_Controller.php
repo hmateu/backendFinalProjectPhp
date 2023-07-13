@@ -10,6 +10,59 @@ use Symfony\Component\HttpFoundation\Response;
 
 class Role_User_Controller extends Controller
 {
+
+    public function createRoleUser(Request $request)
+    {
+        try {
+            $validator = Validator::make($request->all(), [
+                'user' => 'required|integer',
+                'role' => 'required|integer'
+            ], [
+                'user.required' => 'El usuario es necesarido',
+                'user.integer' => 'El usuario debe ser un número',
+                'role.required' => 'El rol es necesarido',
+                'role.integer' => 'El rol debe ser un número',
+            ]);
+
+            if ($validator->fails()) {
+                return response()->json($validator->errors(), 400);
+            }
+
+            $validData = $validator->validated();
+
+            //Validar que la relación no exista en la tabla
+            $existRoleUser = Role_User::where('user',$validData['user'])
+                ->where('role',$validData['role']);
+
+                // dd($existRoleUser);
+
+            if ($existRoleUser->exists()) {
+                return response()->json([
+                    'success' => true,
+                    'message' => 'Esta relación ya existe en la base de datos'
+                ], Response::HTTP_OK);
+            }
+
+            $newRoleUser = Role_User::create([
+                'user' => $validData['user'],
+                'role' => $validData['role']
+            ]);
+
+            return response()->json([
+                'success' => true,
+                'message' => 'Relación Rol_Usuario creada',
+                'data' => $newRoleUser
+            ], Response::HTTP_OK);
+        } catch (\Throwable $th) {
+            Log::error('Error creando la relación Rol_Usuario ' . $th->getMessage());
+
+            return response()->json([
+                'success' => false,
+                'message' => 'Error al crear la relación Rol_Usuario',
+            ]);
+        }
+    }
+
     public function updateRoleUser(Request $request)
     {
         try {
@@ -38,7 +91,7 @@ class Role_User_Controller extends Controller
             if (!$roleUser) {
                 return response()->json([
                     'success' => true,
-                    'message' => 'Relación Rol_User no encontrada'
+                    'message' => 'Relación Rol_Usuario no encontrada'
                 ]);
             }
 
@@ -53,16 +106,15 @@ class Role_User_Controller extends Controller
 
             return response()->json([
                 'success' => true,
-                'message' => 'Relación Rol_User actualizada',
+                'message' => 'Relación Rol_Usuario actualizada',
                 'data' => $roleUser
             ], Response::HTTP_OK);
-
         } catch (\Throwable $th) {
-            Log::error('Error actualizando la relación Rol_User ' . $th->getMessage());
+            Log::error('Error actualizando la relación Rol_Usuario ' . $th->getMessage());
 
             return response()->json([
                 'success' => false,
-                'message' => 'Error al actualizar la relación Rol_User '
+                'message' => 'Error al actualizar la relación Rol_Usuario '
             ]);
         }
     }

@@ -39,6 +39,7 @@ Route::delete('/user/delete', [UserController::class, 'deleteMyAccount'])->middl
 Route::post('/user/restore/{id}', [UserController::class, 'restoreAccount']);
 
 // Role_User Controller
+Route::post('/role-user', [Role_User_Controller::class, 'createRoleUser'])->middleware(['auth:sanctum','isAdmin']);
 Route::put('/role-user/update', [Role_User_Controller::class, 'updateRoleUser'])->middleware(['auth:sanctum','isAdmin']);
 
 // Attraction controllers
