@@ -43,7 +43,7 @@ Route::get('/attraction/name/{name}', [AttractionController::class, 'getAttracti
 Route::post('/attraction', [AttractionController::class, 'createAttraction']);
 Route::put('/attraction/update', [AttractionController::class, 'updateAttraction']);
 Route::get('/attraction/{id}', [AttractionController::class, 'getAttractionById']);
-Route::delete('/attraction/{id}', [AttractionController::class, 'deleteAttraction'])->middleware('auth:sanctum');
+Route::delete('/attraction/{id}', [AttractionController::class, 'deleteAttraction'])->middleware(['auth:sanctum','isAdmin']);
 
 // Employee controllers
 Route::get('/employees', [EmployeeController::class, 'getAllEmployees']);

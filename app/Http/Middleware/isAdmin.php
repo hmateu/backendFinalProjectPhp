@@ -18,14 +18,12 @@ class isAdmin
     {
         $user = auth()->user();
 
-        
         $userFound = User::with('role')->find($user->id);
 
-        
+        $admin_id = 1;
+        $isAdmin = $userFound->role()->find($admin_id);
 
-        dd($userFound);
-
-        if($userRole !== 1){
+        if(!$isAdmin){
             return response()->json([
                 'success' => true,
                 'message' => 'No autorizado'

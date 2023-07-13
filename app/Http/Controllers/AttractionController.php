@@ -205,7 +205,7 @@ class AttractionController extends Controller
 
             return response()->json([
                 'success' => false,
-                'message' => 'Error al eliminar la atracción',
+                'message' => 'Error al eliminar la atracción'
             ]);
         }
     }
