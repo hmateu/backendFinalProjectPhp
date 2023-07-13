@@ -48,8 +48,6 @@ class AuthController extends Controller
             }
             $validData = $validator->validated();
 
-            
-
             $newUser = User::create([
                 'dni'=>$validData['dni'],
                 'name'=>$validData['name'],
@@ -70,6 +68,7 @@ class AuthController extends Controller
                 'message'=>'Usuario registrado',
                 'data'=>$newUser
             ],Response::HTTP_CREATED);
+            
         } catch (\Throwable $th) {
             Log::error('Error registrando al usuario ' . $th->getMessage());
 

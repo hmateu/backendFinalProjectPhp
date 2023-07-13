@@ -4,6 +4,7 @@ use App\Http\Controllers\AttractionController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\EmployeeController;
 use App\Http\Controllers\Price_ChangeController;
+use App\Http\Controllers\Role_User_Controller;
 use App\Http\Controllers\TicketController;
 use App\Http\Controllers\UserController;
 use Illuminate\Http\Request;
@@ -36,6 +37,9 @@ Route::get('/user/{id}', [UserController::class, 'getUserById']);
 Route::get('/user/name/{name}', [UserController::class, 'getUserByName']);
 Route::delete('/user/delete', [UserController::class, 'deleteMyAccount'])->middleware('auth:sanctum');
 Route::post('/user/restore/{id}', [UserController::class, 'restoreAccount']);
+
+// Role_User Controller
+Route::put('/role-user/update', [Role_User_Controller::class, 'updateRoleUser'])->middleware(['auth:sanctum','isAdmin']);
 
 // Attraction controllers
 Route::get('/attractions', [AttractionController::class, 'getAllAttractions']);
