@@ -48,6 +48,8 @@ class AuthController extends Controller
             }
             $validData = $validator->validated();
 
+            
+
             $newUser = User::create([
                 'dni'=>$validData['dni'],
                 'name'=>$validData['name'],
@@ -58,6 +60,8 @@ class AuthController extends Controller
                 'email'=>$validData['email'],
                 'password'=>bcrypt($validData['password'])
             ]);
+
+            $newUser->role()->attach(3);
 
             $token = $newUser->createToken('apiToken')->plainTextToken;
 
