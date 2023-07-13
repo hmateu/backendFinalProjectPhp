@@ -27,7 +27,7 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 // Auth controllers
 Route::post('/auth/register', [AuthController::class, 'register']);
 Route::post('/auth/login', [AuthController::class, 'login']);
-Route::get('/auth/profile', [AuthController::class, 'profile'])->middleware('auth:sanctum');
+Route::get('/auth/profile', [AuthController::class, 'profile'])->middleware(['auth:sanctum', 'isAdmin']);
 Route::post('/auth/logout', [AuthController::class, 'logout'])->middleware('auth:sanctum');
 
 // User controllers
@@ -43,7 +43,7 @@ Route::get('/attraction/name/{name}', [AttractionController::class, 'getAttracti
 Route::post('/attraction', [AttractionController::class, 'createAttraction']);
 Route::put('/attraction/update', [AttractionController::class, 'updateAttraction']);
 Route::get('/attraction/{id}', [AttractionController::class, 'getAttractionById']);
-Route::delete('/attraction/{id}', [AttractionController::class, 'deleteAttraction']);
+Route::delete('/attraction/{id}', [AttractionController::class, 'deleteAttraction'])->middleware('auth:sanctum');
 
 // Employee controllers
 Route::get('/employees', [EmployeeController::class, 'getAllEmployees']);

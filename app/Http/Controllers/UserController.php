@@ -11,8 +11,10 @@ class UserController extends Controller
     public function getAllUsers()
     {
         try {
-            $users = User::select('id', 'dni', 'name', 'surname', 'age', 'cp', 'mobile', 'email')
-                ->get();
+            // $users = User::select('id', 'dni', 'name', 'surname', 'age', 'cp', 'mobile', 'email')
+            //     ->get();
+
+            $users = User::with('role')->get();
             return response()->json([
                 'success' => 'true',
                 'message' => 'Usuarios recuperados',
@@ -31,8 +33,9 @@ class UserController extends Controller
     public function getUserById($id)
     {
         try {
-            $user = User::select('id', 'dni', 'name', 'surname', 'age', 'cp', 'mobile', 'email')
-                ->find($id);
+            // $user = User::select('id', 'dni', 'name', 'surname', 'age', 'cp', 'mobile', 'email')
+            //     ->find($id);
+            $user = User::with('role')->find($id);
             return response()->json([
                 'success' => 'true',
                 'message' => 'Usuario recuperado por id',
