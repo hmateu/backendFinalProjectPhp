@@ -32,11 +32,11 @@ Route::get('/auth/profile', [AuthController::class, 'profile'])->middleware(['au
 Route::post('/auth/logout', [AuthController::class, 'logout'])->middleware('auth:sanctum');
 
 // User controllers
-Route::get('/users', [UserController::class, 'getAllUsers']);
-Route::get('/user/{id}', [UserController::class, 'getUserById']);
-Route::get('/user/name/{name}', [UserController::class, 'getUserByName']);
-Route::delete('/user/delete', [UserController::class, 'deleteMyAccount'])->middleware('auth:sanctum');
-Route::post('/user/restore/{id}', [UserController::class, 'restoreAccount']);
+Route::get('/users', [UserController::class, 'getAllUsers'])->middleware(['auth:sanctum', 'isAdmin']);
+Route::get('/user/{id}', [UserController::class, 'getUserById'])->middleware(['auth:sanctum', 'isAdmin']);
+Route::get('/user/name/{name}', [UserController::class, 'getUserByName'])->middleware(['auth:sanctum', 'isAdmin']);
+Route::delete('/user/delete', [UserController::class, 'deleteMyAccount'])->middleware(['auth:sanctum', 'isAdmin']);
+Route::post('/user/restore/{id}', [UserController::class, 'restoreAccount'])->middleware(['auth:sanctum', 'isAdmin']);
 
 // Role_User Controller
 Route::post('/role-user', [Role_User_Controller::class, 'createRoleUser'])->middleware(['auth:sanctum','isAdmin']);
@@ -45,20 +45,20 @@ Route::put('/role-user/update', [Role_User_Controller::class, 'updateRoleUser'])
 // Attraction controllers
 Route::get('/attractions', [AttractionController::class, 'getAllAttractions']);
 Route::get('/attraction/name/{name}', [AttractionController::class, 'getAttractionByName']);
-Route::post('/attraction', [AttractionController::class, 'createAttraction']);
-Route::put('/attraction/update', [AttractionController::class, 'updateAttraction']);
-Route::get('/attraction/{id}', [AttractionController::class, 'getAttractionById']);
+Route::post('/attraction', [AttractionController::class, 'createAttraction'])->middleware(['auth:sanctum', 'isAdmin']);
+Route::put('/attraction/update', [AttractionController::class, 'updateAttraction'])->middleware(['auth:sanctum', 'isAdmin']);
+Route::get('/attraction/{id}', [AttractionController::class, 'getAttractionById'])->middleware(['auth:sanctum', 'isAdmin']);
 Route::delete('/attraction/{id}', [AttractionController::class, 'deleteAttraction'])->middleware(['auth:sanctum','isAdmin']);
 
 // Employee controllers
-Route::get('/employees', [EmployeeController::class, 'getAllEmployees']);
-Route::get('/employee/{id}', [EmployeeController::class, 'getEmployeeById']);
-Route::get('/employee/email/{email}', [EmployeeController::class, 'getEmployeeByEmail']);
-Route::post('/employee', [EmployeeController::class, 'createEmployee']);
+Route::get('/employees', [EmployeeController::class, 'getAllEmployees'])->middleware(['auth:sanctum', 'isAdmin']);
+Route::get('/employee/{id}', [EmployeeController::class, 'getEmployeeById'])->middleware(['auth:sanctum', 'isAdmin']);
+Route::get('/employee/email/{email}', [EmployeeController::class, 'getEmployeeByEmail'])->middleware(['auth:sanctum', 'isAdmin']);
+Route::post('/employee', [EmployeeController::class, 'createEmployee'])->middleware(['auth:sanctum', 'isAdmin']);
 
 // Price_Change controllers
 Route::get('/price-change', [Price_ChangeController::class, 'getAllPrice_Change']);
-Route::get('/price-change/{id}', [Price_ChangeController::class, 'getPrice_ChangeById']);
+Route::get('/price-change/{id}', [Price_ChangeController::class, 'getPrice_ChangeById'])->middleware(['auth:sanctum', 'isAdmin']);
 Route::get('/price-change/name/{name}', [Price_ChangeController::class, 'getPrice_ChangeByName']);
 
 // Price_Change controllers
