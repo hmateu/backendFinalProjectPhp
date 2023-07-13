@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Role;
 use App\Models\Role_User;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Validator;
@@ -34,7 +36,22 @@ class Role_User_Controller extends Controller
             $existRoleUser = Role_User::where('user',$validData['user'])
                 ->where('role',$validData['role']);
 
-                // dd($existRoleUser);
+            $existUser = User::find($validData['user']);
+            $existRole = Role::find($validData['role']);
+
+            if($existUser === null){
+                return response()->json([
+                    'success' => true,
+                    'message' => 'El usuario no existe'
+                ], Response::HTTP_OK);
+            }
+
+            if($existRole === null){
+                return response()->json([
+                    'success' => true,
+                    'message' => 'El rol no existe'
+                ], Response::HTTP_OK);
+            }
 
             if ($existRoleUser->exists()) {
                 return response()->json([
