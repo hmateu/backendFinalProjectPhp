@@ -49,6 +49,7 @@ Route::delete('/attraction/{id}', [AttractionController::class, 'deleteAttractio
 Route::get('/employees', [EmployeeController::class, 'getAllEmployees']);
 Route::get('/employee/{id}', [EmployeeController::class, 'getEmployeeById']);
 Route::get('/employee/email/{email}', [EmployeeController::class, 'getEmployeeByEmail']);
+Route::post('/employee', [EmployeeController::class, 'createEmployee']);
 
 // Price_Change controllers
 Route::get('/price-change', [Price_ChangeController::class, 'getAllPrice_Change']);

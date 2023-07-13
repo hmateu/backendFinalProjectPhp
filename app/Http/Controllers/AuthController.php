@@ -40,7 +40,7 @@ class AuthController extends Controller
                 'email.string' => 'El email debe ser una cadena de texto',
                 'email.unique' => 'El email ya existe, debes elegir otro',
                 'password.required' => 'La contraseña es necesaria',
-                'password.string' => 'La contraseña debe ser una cadena de texto',
+                'password.string' => 'La contraseña debe ser una cadena de texto'
             ]);
 
             if($validator->fails()) {
