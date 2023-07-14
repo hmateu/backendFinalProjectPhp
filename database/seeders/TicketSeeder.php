@@ -101,15 +101,15 @@ class TicketSeeder extends Seeder
             [
                 'date' => '2023-07-11 00:00:00',
                 'customer' => 20,
-                'price_change' => 1,
-                'price' => 35,
+                'price_change' => 3,
+                'price' => 20,
                 'validated' => false
             ],
             [
                 'date' => '2023-07-11 00:00:00',
                 'customer' => 21,
-                'price_change' => 1,
-                'price' => 35,
+                'price_change' => 3,
+                'price' => 20,
                 'validated' => false
             ],
             [
@@ -117,6 +117,13 @@ class TicketSeeder extends Seeder
                 'customer' => 22,
                 'price_change' => 2,
                 'price' => 25,
+                'validated' => false
+            ],
+            [
+                'date' => '2023-07-11 00:00:00',
+                'customer' => 23,
+                'price_change' => 1,
+                'price' => 35,
                 'validated' => false
             ],
             [
