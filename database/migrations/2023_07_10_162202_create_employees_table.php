@@ -13,8 +13,6 @@ return new class extends Migration
     {
         Schema::create('employees', function (Blueprint $table) {
             $table->id();
-            $table->string('email');
-            $table->string('password');
             $table->unsignedBigInteger('user');
             $table->unsignedBigInteger('attraction');
             $table->timestamps();

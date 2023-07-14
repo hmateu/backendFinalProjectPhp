@@ -9,6 +9,7 @@ use App\Http\Controllers\TicketController;
 use App\Http\Controllers\UserController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use Symfony\Component\HttpFoundation\Response;
 
 /*
 |--------------------------------------------------------------------------
@@ -23,6 +24,14 @@ use Illuminate\Support\Facades\Route;
 
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
+});
+
+// Saludo
+Route::get('/saludo', function(){
+    return response()->json([
+        'success'=> true,
+        'message'=> 'Hola'
+    ],Response::HTTP_OK);
 });
 
 // Auth controllers
@@ -53,7 +62,6 @@ Route::delete('/attraction/{id}', [AttractionController::class, 'deleteAttractio
 // Employee controllers
 Route::get('/employees', [EmployeeController::class, 'getAllEmployees'])->middleware(['auth:sanctum', 'isAdmin']);
 Route::get('/employee/{id}', [EmployeeController::class, 'getEmployeeById'])->middleware(['auth:sanctum', 'isAdmin']);
-Route::get('/employee/email/{email}', [EmployeeController::class, 'getEmployeeByEmail'])->middleware(['auth:sanctum', 'isAdmin']);
 Route::post('/employee', [EmployeeController::class, 'createEmployee'])->middleware(['auth:sanctum', 'isAdmin']);
 
 // Price_Change controllers

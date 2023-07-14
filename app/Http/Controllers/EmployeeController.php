@@ -51,41 +51,13 @@ class EmployeeController extends Controller
         }
     }
 
-    public function getEmployeeByEmail($email)
-    {
-        try {
-            $employee = Employee::with('user:id,name')->with('attraction:id,name')
-                ->where('employees.email', 'like', '%' . $email . '%')
-                ->get();
-            return response()->json([
-                'success' => 'true',
-                'message' => 'Empleado recuperado por email',
-                'data' => $employee
-            ], Response::HTTP_OK);
-        } catch (\Throwable $th) {
-            Log::error('Error recuperando el empleado por email ' . $th->getMessage());
-
-            return response()->json([
-                'success' => 'false',
-                'message' => 'Error al recuperar el empleado por email',
-            ]);
-        }
-    }
-
     public function createEmployee(Request $request)
     {
         try {
             $validator = Validator::make($request->all(), [
-                'email' => 'required|email|unique:employees,email',
-                'password' => ['required', Password::min(8)->mixedCase()->numbers()],
                 'user' => 'required|integer',
                 'attraction' => 'required|integer'
             ], [
-                'email.required' => 'El email es necesarido',
-                'email.email' => 'El email debe ser de tipo email',
-                'email.unique' => 'Este email ya existe',
-                'password.required' => 'La contraseña es necesaria',
-                'password.string' => 'La contraseña debe ser una cadena de texto',
                 'user.required' => 'El usuario es necesario',
                 'user.integer' => 'El usuario dede ser un número',
                 'attraction.required' => 'La atracción es necesaria',
@@ -98,12 +70,12 @@ class EmployeeController extends Controller
             $validData = $validator->validated();
 
             //Validar que el usuario no esté ya asignado por un empleado anterior
-            $duplicateUser = Employee::find($validData['user']);
+            $duplicateUser = Employee::where('user',$validData['user'])->first();
             if($duplicateUser !== null){
                 return response()->json([
                     'success' => true,
                     'message' => 'El usuario ya está registrado'
-                ], Response::HTTP_OK);
+                ], Response::HTTP_BAD_REQUEST);
             }
 
             //Validar que el usuario existe en la tabla users
@@ -112,7 +84,7 @@ class EmployeeController extends Controller
                 return response()->json([
                     'success' => true,
                     'message' => 'El usuario no existe'
-                ], Response::HTTP_OK);
+                ], Response::HTTP_BAD_REQUEST);
             }
            
             //Validar que la atracción existe en la tabla attractions
