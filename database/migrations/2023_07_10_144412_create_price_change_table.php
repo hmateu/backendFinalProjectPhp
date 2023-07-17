@@ -11,7 +11,7 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('price_change', function (Blueprint $table) {
+        Schema::create('ticket_type', function (Blueprint $table) {
             $table->id();
             $table->string('name');
             $table->float('price');
@@ -25,6 +25,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('price_change');
+        Schema::dropIfExists('ticket_type');
     }
 };

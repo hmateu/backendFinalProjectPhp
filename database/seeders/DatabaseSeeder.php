@@ -16,7 +16,7 @@ class DatabaseSeeder extends Seeder
             RoleSeeder::class,
             UserSeeder::class,
             Role_User_Seeder::class,
-            Price_ChangeSeeder::class,
+            Ticket_TypeSeeder::class,
             TicketSeeder::class,
             AttractionSeeder::class,
             EmployeeSeeder::class,

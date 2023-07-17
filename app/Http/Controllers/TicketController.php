@@ -12,7 +12,7 @@ class TicketController extends Controller
     public function getAllTickets()
     {
         try {
-            $tickets = Ticket::select('id', 'date', 'customer', 'price_change', 'price', 'validated')
+            $tickets = Ticket::select('id', 'date', 'customer', 'ticket_type', 'price', 'validated')
                 ->get();
             return response()->json([
                 'success' => 'true',

@@ -3,7 +3,7 @@
 use App\Http\Controllers\AttractionController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\EmployeeController;
-use App\Http\Controllers\Price_ChangeController;
+use App\Http\Controllers\Ticket_TypeController;
 use App\Http\Controllers\Role_User_Controller;
 use App\Http\Controllers\TicketController;
 use App\Http\Controllers\UserController;
@@ -64,10 +64,10 @@ Route::get('/employees', [EmployeeController::class, 'getAllEmployees'])->middle
 Route::get('/employee/{id}', [EmployeeController::class, 'getEmployeeById'])->middleware(['auth:sanctum', 'isAdmin']);
 Route::post('/employee', [EmployeeController::class, 'createEmployee'])->middleware(['auth:sanctum', 'isAdmin']);
 
-// Price_Change controllers
-Route::get('/price-change', [Price_ChangeController::class, 'getAllPrice_Change']);
-Route::get('/price-change/{id}', [Price_ChangeController::class, 'getPrice_ChangeById'])->middleware(['auth:sanctum', 'isAdmin']);
-Route::get('/price-change/name/{name}', [Price_ChangeController::class, 'getPrice_ChangeByName']);
+// Ticket_Type controllers
+Route::get('/ticket-type', [Ticket_TypeController::class, 'getAllTicket_Type']);
+Route::get('/ticket-type/{id}', [Ticket_TypeController::class, 'getTicket_TypeById'])->middleware(['auth:sanctum', 'isAdmin']);
+Route::get('/ticket-type/name/{name}', [Ticket_TypeController::class, 'getTicket_TypeByName']);
 
-// Price_Change controllers
+// Ticket controllers
 Route::get('/tickets', [TicketController::class, 'getAllTickets'])->middleware(['auth:sanctum', 'isEmployee']);

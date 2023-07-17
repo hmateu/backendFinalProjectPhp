@@ -5,7 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Price_Change extends Model
+class Ticket_type extends Model
 {
     use HasFactory;
 
@@ -15,7 +15,7 @@ class Price_Change extends Model
         'description'
     ];
 
-    protected $table = "price_change";
+    protected $table = "ticket_type";
 
     public function ticket() {
         return $this->hasMany(Ticket::class);

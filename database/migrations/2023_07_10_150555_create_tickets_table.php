@@ -15,14 +15,14 @@ return new class extends Migration
             $table->id();
             $table->date('date');
             $table->unsignedBigInteger('customer');
-            $table->unsignedBigInteger('price_change');
+            $table->unsignedBigInteger('ticket_type');
             $table->float('price');
             $table->boolean('validated');
             $table->timestamps();
 
             
             $table->foreign('customer')->references('id')->on('users');
-            $table->foreign('price_change')->references('id')->on('price_change');
+            $table->foreign('ticket_type')->references('id')->on('ticket_type');
         });
     }
 

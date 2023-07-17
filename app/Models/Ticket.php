@@ -13,8 +13,8 @@ class Ticket extends Model
         return $this->belongsTo(User::class, 'customer');
     }
 
-    public function price_change() {
-        return $this->belongsTo(Price_Change::class, 'price_change');
+    public function ticket_type() {
+        return $this->belongsTo(Ticket_Type::class, 'ticket_type');
     }
 
 }

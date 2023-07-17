@@ -6,14 +6,14 @@ use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 
-class Price_ChangeSeeder extends Seeder
+class Ticket_TypeSeeder extends Seeder
 {
     /**
      * Run the database seeds.
      */
     public function run(): void
     {
-        DB::table('price_change')->insert([
+        DB::table('ticket_type')->insert([
             [
                 'id' => 1,
                 'name' => 'General',

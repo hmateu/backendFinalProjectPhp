@@ -2,22 +2,22 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Price_Change;
+use App\Models\Ticket_Type;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
 use Symfony\Component\HttpFoundation\Response;
 
-class Price_ChangeController extends Controller
+class Ticket_TypeController extends Controller
 {
-    public function getAllPrice_Change()
+    public function getAllTicket_Type()
     {
         try {
-            $price_change = Price_Change::select('id', 'name', 'price', 'description')
+            $ticket_type = Ticket_Type::select('id', 'name', 'price', 'description')
                 ->get();
             return response()->json([
                 'success' => 'true',
                 'message' => 'Tipos de entrada recuperados',
-                'data' => $price_change
+                'data' => $ticket_type
             ], Response::HTTP_OK);
         } catch (\Throwable $th) {
             Log::error('Error recuperando tipos de entrada ' . $th->getMessage());
@@ -29,15 +29,15 @@ class Price_ChangeController extends Controller
         }
     }
 
-    public function getPrice_ChangeById($id)
+    public function getTicket_TypeById($id)
     {
         try {
-            $price_change = Price_Change::select('id', 'name', 'price', 'description')
+            $ticket_type = Ticket_Type::select('id', 'name', 'price', 'description')
                 ->find($id);
             return response()->json([
                 'success' => 'true',
                 'message' => 'Tipo de entrada recuperado por id',
-                'data' => $price_change
+                'data' => $ticket_type
             ], Response::HTTP_OK);
         } catch (\Throwable $th) {
             Log::error('Error recuperando el tipo de entrada por id ' . $th->getMessage());
@@ -49,16 +49,16 @@ class Price_ChangeController extends Controller
         }
     }
 
-    public function getPrice_ChangeByName($name)
+    public function getTicket_TypeByName($name)
     {
         try {
-            $price_change = Price_Change::select('id', 'name', 'price', 'description')
+            $ticket_type = Ticket_Type::select('id', 'name', 'price', 'description')
                 ->where('name', 'like', '%' . $name . '%')
                 ->get();
             return response()->json([
                 'success' => 'true',
                 'message' => 'Tipo de entrada recuperado por nombre',
-                'data' => $price_change
+                'data' => $ticket_type
             ], Response::HTTP_OK);
         } catch (\Throwable $th) {
             Log::error('Error recuperando el tipo de entrada por nombre ' . $th->getMessage());
