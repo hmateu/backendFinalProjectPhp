@@ -20,7 +20,8 @@ class DatabaseSeeder extends Seeder
             TicketSeeder::class,
             AttractionSeeder::class,
             EmployeeSeeder::class,
-            PayrollSeeder::class
+            PayrollSeeder::class,
+            Ticket_DataSeeder::class
         ]);
 
         // \App\Models\User::factory(10)->create();
