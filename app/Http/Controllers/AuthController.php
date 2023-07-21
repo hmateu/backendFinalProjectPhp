@@ -61,7 +61,7 @@ class AuthController extends Controller
 
             $newUser->role()->attach(3);
 
-            $token = $newUser->createToken('apiToken')->plainTextToken;
+            // $token = $newUser->createToken('apiToken')->plainTextToken;
 
             return response()->json([
                 'success'=>true,
@@ -110,7 +110,10 @@ class AuthController extends Controller
                 ], Response::HTTP_FORBIDDEN);
             }
     
-            $token = $user->createToken('apiToken')->plainTextToken;
+            $role = $user->role->pluck('name')->implode(',');
+            $token = $user->createToken('user-token', ['name' => $user->name, 'role' => $role])->plainTextToken;
+
+            // $token = $user->createToken('apiToken')->plainTextToken;
     
             return response()->json([
                 'success' => true,
@@ -129,11 +132,13 @@ class AuthController extends Controller
     public function profile(){
         try {
             $user = auth()->user();
+
+            $user->role;
             
             return response()->json([
                 'success' => true,
                 'message' => 'Usuario encontrado',
-                'data' => $user
+                'data' => $user,
             ], Response::HTTP_OK);
         } catch (\Throwable $th) {
             Log::error('Error recuperando usuarios ' . $th->getMessage());
