@@ -11,6 +11,7 @@ class Attraction extends Model
 
     protected $fillable = [
         'name',
+        'description',
         'min_height',
         'max_height',
         'length'
