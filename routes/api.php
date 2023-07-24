@@ -56,7 +56,7 @@ Route::get('/attractions', [AttractionController::class, 'getAllAttractions']);
 Route::get('/attraction/name/{name}', [AttractionController::class, 'getAttractionByName']);
 Route::post('/attraction', [AttractionController::class, 'createAttraction'])->middleware(['auth:sanctum', 'isAdmin']);
 Route::put('/attraction/update', [AttractionController::class, 'updateAttraction'])->middleware(['auth:sanctum', 'isEmployee']);
-Route::get('/attraction/{id}', [AttractionController::class, 'getAttractionById'])->middleware(['auth:sanctum', 'isEmployee']);
+Route::get('/attraction/{id}', [AttractionController::class, 'getAttractionById']);
 Route::delete('/attraction/{id}', [AttractionController::class, 'deleteAttraction'])->middleware(['auth:sanctum','isAdmin']);
 
 // Employee controllers
