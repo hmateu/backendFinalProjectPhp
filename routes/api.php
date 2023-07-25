@@ -70,4 +70,4 @@ Route::get('/ticket-type/{id}', [Ticket_TypeController::class, 'getTicket_TypeBy
 Route::get('/ticket-type/name/{name}', [Ticket_TypeController::class, 'getTicket_TypeByName']);
 
 // Ticket controllers
-Route::get('/tickets', [TicketController::class, 'getAllTickets'])->middleware(['auth:sanctum', 'isEmployee']);
+Route::get('/tickets', [TicketController::class, 'getAllTickets'])->middleware(['auth:sanctum', 'isAdmin']);
