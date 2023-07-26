@@ -38,6 +38,7 @@ Route::get('/saludo', function(){
 Route::post('/auth/register', [AuthController::class, 'register']);
 Route::post('/auth/login', [AuthController::class, 'login']);
 Route::get('/auth/profile', [AuthController::class, 'profile'])->middleware('auth:sanctum');
+Route::put('/auth/profile-update', [AuthController::class, 'updateProfile'])->middleware('auth:sanctum');
 Route::post('/auth/logout', [AuthController::class, 'logout'])->middleware('auth:sanctum');
 
 // User controllers

@@ -150,6 +150,84 @@ class AuthController extends Controller
         }
     }
 
+    public function updateProfile(Request $request){
+        try {
+            $user = auth()->user();
+            $user->role;
+
+            $validator = Validator::make($request->all(), [
+                'dni' => 'string|unique:users,dni',
+                'name' => 'string',
+                'surname' => 'string',
+                'age' => 'integer',
+                'cp' => 'integer',
+                'mobile' => 'integer',
+                'email' => 'email|unique:users,email'
+            ],[
+                'dni.string' => 'El DNI debe ser una cadena de texto',
+                'dni.unique' => 'Este DNI no es válido',
+                'name.string' => 'El nombre debe ser una cadena de texto',
+                'surname.string' => 'Los apellidos deben ser una cadena de texto',
+                'age.integer' => 'La edad debe ser un número',
+                'cp.integer' => 'El código postal debe ser un número',
+                'mobile.integer' => 'El teléfono debe ser un número',
+                'email.string' => 'El email debe ser una cadena de texto',
+                'email.unique' => 'El email ya existe, debes elegir otro'
+            ]);
+
+            if($validator->fails()) {
+                return response()->json($validator->errors(), 400);
+            }
+
+            $validData = $validator->validated();
+
+            $newData = User::find($user->id);
+
+            if (!$newData) {
+                return response()->json([
+                    'message' => 'Usuario no encontrado'
+                ]);
+            }
+
+            if (isset($validData['dni'])) {
+                $newData->dni = $validData['dni'];
+            }
+            if (isset($validData['name'])) {
+                $newData->name = $validData['name'];
+            }
+            if (isset($validData['surname'])) {
+                $newData->surname = $validData['surname'];
+            }
+            if (isset($validData['age'])) {
+                $newData->age = $validData['age'];
+            }
+            if (isset($validData['cp'])) {
+                $newData->cp = $validData['cp'];
+            }
+            if (isset($validData['mobile'])) {
+                $newData->mobile = $validData['mobile'];
+            }
+            if (isset($validData['email'])) {
+                $newData->email = $validData['email'];
+            }
+
+            $newData->save();
+            
+            return response()->json([
+                'success' => true,
+                'message' => 'Perfil actualizado',
+                'data' => $newData,
+            ], Response::HTTP_OK);
+        } catch (\Throwable $th) {
+            Log::error('Error actualizando el perfil ' . $th->getMessage());
+
+            return response()->json([
+                'success' => false,
+                'message' => 'Error actualizando el perfil'
+            ], Response::HTTP_INTERNAL_SERVER_ERROR);
+        }
+    }
+
     public function logout(Request $request){
         try {
             $headerToken = $request->bearerToken();
