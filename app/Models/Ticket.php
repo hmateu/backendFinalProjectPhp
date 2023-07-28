@@ -17,4 +17,8 @@ class Ticket extends Model
         return $this->belongsTo(Ticket_Type::class, 'ticket_type');
     }
 
+    public function ticket_data(){
+        return $this->hasMany(Ticket_Data::class);
+    }
+
 }

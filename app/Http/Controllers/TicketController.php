@@ -13,9 +13,11 @@ class TicketController extends Controller
     {
         try {
             $tickets = Ticket::select('id', 'date', 'customer', 'ticket_type', 'price', 'validated')
+                ->with(['user:id,name,surname', 'ticket_type:id,name'])
                 ->get();
+
             return response()->json([
-                'success' => 'true',
+                'success' => true,
                 'message' => 'Entradas recuperadas',
                 'data' => $tickets
             ], Response::HTTP_OK);

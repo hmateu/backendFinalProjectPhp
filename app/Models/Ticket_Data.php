@@ -16,6 +16,8 @@ class Ticket_Data extends Model
         'ticket'
     ];
 
+    protected $table = "tickets_data";
+
     public function ticket() {
         return $this->belongsTo(Ticket::class, 'ticket');
     }
