@@ -31,6 +31,37 @@ class TicketController extends Controller
         }
     }
 
+    public function getMyTickets()
+    {
+        try {
+            $id = auth()->user()->id;
+
+            $myTickets = Ticket::select('id', 'date', 'customer', 'ticket_type', 'price', 'validated')
+                ->with(['user:id,name,surname', 'ticket_type:id,name'])
+                ->where('customer', $id)
+                ->get();
+
+            if ($myTickets->isEmpty()) {
+                return response()->json([
+                    'success' => true,
+                    'message' => 'No has comprado ninguna entrada'
+                ]);
+            }
+
+            return response()->json([
+                'success' => true,
+                'message' => 'Entradas propias recuperadas',
+                'data' => $myTickets
+            ]);
+        } catch (\Throwable $th) {
+            Log::error('Error booking your ticket: ' . $th->getMessage());
+
+            return response()->json([
+                'message' => 'Error booking your ticket'
+            ], Response::HTTP_INTERNAL_SERVER_ERROR);
+        }
+    }
+
     public function deleteTicket($id)
     {
         try {
