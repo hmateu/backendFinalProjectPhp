@@ -47,6 +47,7 @@ Route::get('/user/{id}', [UserController::class, 'getUserById'])->middleware(['a
 Route::get('/user/name/{name}', [UserController::class, 'getUserByName'])->middleware(['auth:sanctum', 'isAdmin']);
 Route::delete('/user/delete', [UserController::class, 'deleteMyAccount'])->middleware(['auth:sanctum', 'isAdmin']);
 Route::post('/user/restore/{id}', [UserController::class, 'restoreAccount'])->middleware(['auth:sanctum', 'isAdmin']);
+Route::delete('/user/{id}', [UserController::class, 'deleteUserById'])->middleware(['auth:sanctum','isAdmin']);
 
 // Role_User Controller
 Route::post('/role-user', [Role_User_Controller::class, 'createRoleUser'])->middleware(['auth:sanctum','isAdmin']);

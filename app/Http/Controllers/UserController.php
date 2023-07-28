@@ -98,6 +98,24 @@ class UserController extends Controller
         }
     }
 
+    public function deleteUserById($id)
+    {
+        try {
+            User::destroy($id);
+            return response()->json([
+                'success' => true,
+                'message' => 'Usuario eliminado'
+            ], Response::HTTP_OK);
+        } catch (\Throwable $th) {
+            Log::error('Error eliminando el usuario ' . $th->getMessage());
+
+            return response()->json([
+                'success' => false,
+                'message' => 'Error al eliminar el usuario'
+            ]);
+        }
+    }
+
     public function restoreAccount($id)
     {
         try {
