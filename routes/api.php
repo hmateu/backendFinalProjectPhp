@@ -72,3 +72,4 @@ Route::get('/ticket-type/name/{name}', [Ticket_TypeController::class, 'getTicket
 
 // Ticket controllers
 Route::get('/tickets', [TicketController::class, 'getAllTickets'])->middleware(['auth:sanctum', 'isAdmin']);
+Route::delete('/ticket/{id}', [TicketController::class, 'deleteTicket'])->middleware(['auth:sanctum', 'isAdmin']);

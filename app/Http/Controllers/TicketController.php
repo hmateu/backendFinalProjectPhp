@@ -30,4 +30,22 @@ class TicketController extends Controller
             ]);
         }
     }
+
+    public function deleteTicket($id)
+    {
+        try {
+            Ticket::destroy($id);
+            return response()->json([
+                'success' => true,
+                'message' => 'Entrada eliminada'
+            ], Response::HTTP_OK);
+        } catch (\Throwable $th) {
+            Log::error('Error eliminando la entrada ' . $th->getMessage());
+
+            return response()->json([
+                'success' => false,
+                'message' => 'Error al eliminar la entrada'
+            ]);
+        }
+    }
 }
