@@ -53,6 +53,30 @@ class EmployeeSeeder extends Seeder
             [
                 'user' => 11,
                 'attraction' => 5
+            ],
+            [
+                'user' => 13,
+                'attraction' => 6
+            ],
+            [
+                'user' => 14,
+                'attraction' => 6
+            ],
+            [
+                'user' => 17,
+                'attraction' => 7
+            ],
+            [
+                'user' => 18,
+                'attraction' => 7
+            ],
+            [
+                'user' => 19,
+                'attraction' => 8
+            ],
+            [
+                'user' => 20,
+                'attraction' => 8
             ]
         ]);
     }

@@ -59,6 +59,30 @@ class Role_User_Seeder extends Seeder
                 'user' => 11
             ],
             [
+                'role' => 2,
+                'user' => 13
+            ],
+            [
+                'role' => 2,
+                'user' => 14
+            ],
+            [
+                'role' => 2,
+                'user' => 17
+            ],
+            [
+                'role' => 2,
+                'user' => 18
+            ],
+            [
+                'role' => 2,
+                'user' => 19
+            ],
+            [
+                'role' => 2,
+                'user' => 20
+            ],
+            [
                 'role' => 3,
                 'user' => 2
             ],
