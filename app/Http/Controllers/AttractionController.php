@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Attraction;
+use App\Models\Employee;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Validator;
@@ -15,10 +16,35 @@ class AttractionController extends Controller
         try {
             $attractions = Attraction::select('id', 'name', 'description', 'min_height', 'max_height', 'length')
                 ->get();
+
             return response()->json([
                 'success' => true,
                 'message' => 'Atracciones recuperadas',
                 'data' => $attractions
+            ], Response::HTTP_OK);
+        } catch (\Throwable $th) {
+            Log::error('Error recuperando atracciones ' . $th->getMessage());
+
+            return response()->json([
+                'success' => false,
+                'message' => 'Error al recuperar atracciones',
+            ]);
+        }
+    }
+
+    public function getAllAttractionsByAdmin()
+    {
+        try {
+            $attractions = Employee::select('id', 'attraction', 'user')
+                ->with(['attraction:id,name', 'user:id,name'])
+                ->get();
+
+            $employeesByAttraction = $attractions->groupBy('attraction');
+
+            return response()->json([
+                'success' => true,
+                'message' => 'Atracciones recuperadas',
+                'data' => $employeesByAttraction
             ], Response::HTTP_OK);
         } catch (\Throwable $th) {
             Log::error('Error recuperando atracciones ' . $th->getMessage());

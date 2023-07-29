@@ -55,6 +55,7 @@ Route::put('/role-user/update', [Role_User_Controller::class, 'updateRoleUser'])
 
 // Attraction controllers
 Route::get('/attractions', [AttractionController::class, 'getAllAttractions']);
+Route::get('/attractions-admin', [AttractionController::class, 'getAllAttractionsByAdmin'])->middleware(['auth:sanctum', 'isAdmin']);
 Route::get('/attraction/name/{name}', [AttractionController::class, 'getAttractionByName']);
 Route::post('/attraction', [AttractionController::class, 'createAttraction'])->middleware(['auth:sanctum', 'isAdmin']);
 Route::put('/attraction/update', [AttractionController::class, 'updateAttraction'])->middleware(['auth:sanctum', 'isEmployee']);
