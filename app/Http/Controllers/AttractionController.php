@@ -93,9 +93,9 @@ class AttractionController extends Controller
                 'max_height' => 'required|integer',
                 'length' => 'required|integer'
             ], [
-                'name.required' => 'El nombre es necesarido',
+                'name.required' => 'El nombre es necesario',
                 'name.string' => 'El nombre debe ser una cadena de texto',
-                'description.required' => 'La descripción es necesarido',
+                'description.required' => 'La descripción es necesaria',
                 'description.text' => 'La descripción debe ser un texto',
                 'name.unique' => 'Esa atracción ya existe',
                 'min_height.required' => 'La altura mínima es necesaria',
