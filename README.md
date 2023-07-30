@@ -63,12 +63,12 @@ A continuación se detallan los endpoints que han sido desarrollados en esta API
                 "cp": 14336,
                 "mobile": 630174559,
                 "email": "hmateu.ortola@gmail.com",
-                "password": "Hector1234"
+                "password": "Hector1234!"
             }
         ```
     - **/login**
 
-            POST http://localhost:8000/api/auth/login  
+            POST http://localhost:8000/api/auth/login
         body:
         ``` js
             {
@@ -80,7 +80,25 @@ A continuación se detallan los endpoints que han sido desarrollados en esta API
 
             GET http://localhost:8000/api/auth/profile
 
-    - **/logout** : Cierra sesión  
+    - **/profile-update** : Modifica los datos que quieras de tu perfil. Los que no quieras cambiar elimínalos de la petición
+
+            PUT http://localhost:8000/api/auth/profile-update
+
+        body:
+        ``` js
+            {
+                "dni": "35471123Z",
+                "name": "Héctor",
+                "surname": "Mateu Ortolá",
+                "age": "29",
+                "cp": 14336,
+                "mobile": 630174559,
+                "email": "hmateu.ortola@gmail.com",
+                "password": "Hector1234!"
+            }
+        ```
+
+    - **/logout** : Cierra sesión (debes estar logueado)
 
             POST http://localhostt:8000/api/auth/logout
 
@@ -90,14 +108,48 @@ A continuación se detallan los endpoints que han sido desarrollados en esta API
 
             GET http://localhost:8000/api/attractions
 
-    - **/attraction/:id** : Recupera la atracción con el id que le pases por argumento  
+    - **/attractions-admin** : Recupera todas las atracciones y los usuarios asignados a cada una (debes estar logueado como admin)  
+
+            GET http://localhost:8000/api/attractions-admin
+
+    - **/attraction/{id}** : Recupera la atracción con el id que le pases por argumento  
 
             GET http://localhost:8000/api/attraction/2
 
 - **entradas**
+    - **/new-ticket** : Genera una entrada nueva (debes estar logueado)  
+
+            POST http://localhost:8000/api/new-ticket
+        body:
+        ``` js
+            {
+                "date": "2023-07-11",
+                "ticket_type": 1
+            }
+        ```
+
+    - **/my-tickets** : Recupera mis entradas (debes estar logueado)  
+
+            GET http://localhost:8000/api/my-tickets
+
     - **/tickets** : Recupera todas las entradas (debes estar logueado como admin)  
 
             GET http://localhost:8000/api/tickets
+
+    - **/ticket/{id}** : Elimina cualquier entrada (debes estar logueado como admin)  
+
+            DELETE http://localhost:8000/api/ticket/4
+
+- **Usuarios**
+
+    - **/users** : Recupera todos los usuarios de la base de datos (debes estar logueado como admin)  
+
+            GET http://localhost:8000/api/users
+
+    - **/user/{id}** : Elimina cualquier usuario (debes estar logueado como admin)  
+
+            DELETE http://localhost:8000/api/user/3
+
 </details>
 
 ## Contribuciones
@@ -122,7 +174,7 @@ Puedes hacerlo de dos maneras:
     - Abre una solicitud de Pull Request
 
 ## Agradecimientos
-Agradezco a mis profesores el tiempo dedicado a este proyecto:
+Agradezco a mis profesores el tiempo dedicado a este proyecto y a mis compañeros por sus consejos y apoyo. Sin esta ayuda no lo hubiera conseguido en el tiempo estipulado.
 
 - **Dani**  
 <a href="https://github.com/Datata" target="_blank"><img src="https://img.shields.io/badge/github-24292F?style=for-the-badge&logo=github&logoColor=lime" target="_blank"></a> 
