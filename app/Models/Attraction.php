@@ -10,6 +10,7 @@ class Attraction extends Model
     use HasFactory;
 
     protected $fillable = [
+        'picture',
         'name',
         'description',
         'min_height',

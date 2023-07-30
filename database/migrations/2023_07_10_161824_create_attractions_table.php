@@ -13,6 +13,7 @@ return new class extends Migration
     {
         Schema::create('attractions', function (Blueprint $table) {
             $table->id();
+            $table->string('picture');
             $table->string('name');
             $table->text('description');
             $table->integer('min_height');

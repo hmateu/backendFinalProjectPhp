@@ -14,7 +14,7 @@ class AttractionController extends Controller
     public function getAllAttractions()
     {
         try {
-            $attractions = Attraction::select('id', 'name', 'description', 'min_height', 'max_height', 'length')
+            $attractions = Attraction::select('id', 'picture', 'name', 'description', 'min_height', 'max_height', 'length')
                 ->get();
 
             return response()->json([
@@ -36,7 +36,7 @@ class AttractionController extends Controller
     {
         try {
             $attractions = Employee::select('id', 'attraction', 'user')
-                ->with(['attraction:id,name', 'user:id,name'])
+                ->with(['attraction:id,name,picture', 'user:id,name'])
                 ->get();
 
             $employeesByAttraction = $attractions->groupBy('attraction');
@@ -59,7 +59,7 @@ class AttractionController extends Controller
     public function getAttractionById($id)
     {
         try {
-            $attraction = Attraction::select('id', 'name', 'description', 'min_height', 'max_height', 'length')
+            $attraction = Attraction::select('id', 'picture', 'name', 'description', 'min_height', 'max_height', 'length')
                 ->find($id);
             if ($attraction === null) {
                 return response()->json([
