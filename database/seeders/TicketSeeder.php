@@ -114,13 +114,6 @@ class TicketSeeder extends Seeder
             ],
             [
                 'date' => '2023-07-11 00:00:00',
-                'customer' => 22,
-                'ticket_type' => 2,
-                'price' => 25,
-                'validated' => false
-            ],
-            [
-                'date' => '2023-07-11 00:00:00',
                 'customer' => 23,
                 'ticket_type' => 1,
                 'price' => 35,
