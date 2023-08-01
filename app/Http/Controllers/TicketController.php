@@ -69,6 +69,8 @@ class TicketController extends Controller
         try {
             $customer = auth()->user()->id;
 
+            dd($customer);
+
             $validator = Validator::make($request->all(), [
                 'date' => 'required|date',
                 'ticket_type' => 'required|integer'
