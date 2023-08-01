@@ -49,7 +49,7 @@ class AttractionSeeder extends Seeder
             [
                 'picture' => 'https://s3-pictures-final-proyect-fsd.s3.amazonaws.com/pasajeros_al_tren.jpg',
                 'name' => '¡Pasajeros al tren!',
-                'description' => 'Subete a nuestro tren para conocer nuestro parque al completo. Disfrutarás de un paseo donde podrás apreciar todo el parque y organizar mejor tu día. Es ideal para conocernos un poco mejor y aprovechar el día al máximo.',
+                'description' => 'Súbete a nuestro tren para conocer nuestro parque al completo. Disfrutarás de un paseo donde podrás apreciar todo el parque y organizar mejor tu día. Es ideal para conocernos un poco mejor y aprovechar el día al máximo.',
                 'min_height' => 60,
                 'max_height' => 195,
                 'length' => 3000

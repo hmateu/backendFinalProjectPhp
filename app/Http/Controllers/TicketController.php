@@ -86,11 +86,11 @@ class TicketController extends Controller
 
             $price = Ticket_type::select('price')
                 ->where('id', $validData['ticket_type'])
-                ->get();
+                ->value('price');
 
-            $arrayData = json_decode($price, true);
+            // $arrayData = json_decode($price, true);
 
-            $price = $arrayData[0]['price'];
+            // $price = $arrayData[0]['price'];
 
             $newTicket = Ticket::create([
                 'date' => $validData['date'],
